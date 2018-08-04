@@ -10,5 +10,7 @@ urlpatterns = [
     url(r'get_board$', views.get_board),
     url(r'get_agreeNumber$', views.get_agreeNumber),
     url(r'get_disagreeNumber$', views.get_disagreeNumber),
-    url(r'get_amAgree$', views.get_amAgree)
+    url(r'get_amAgree$', views.get_amAgree),
+    url(r'get_username$', views.get_username),
+    url(r'get_comments$', views.get_comments)
 ]

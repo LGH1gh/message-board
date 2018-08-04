@@ -1,7 +1,9 @@
 <template>
-    <boardHead UID='UID' time='time' title='title' message='message'></boardHead>
-    <boardFoot MID='MID' UID='UID'></boardFoot>
-    <comment MID='MID'></comment>
+    <div class = 'board'>
+        <boardHead :UID='UID' :time='time' :title='title' :message='message'></boardHead>
+        <boardFoot :MID='MID' :UID='UID'>hello</boardFoot>
+        <comment :MID='MID' :SUID='NUID'></comment>
+    </div>
 </template>
 
 <script>
@@ -17,21 +19,25 @@ export default {
     name: 'board',
     data: function() {
         return {
-            UID: 0,
+            UID: 1,
             time: '',
             title: '',
             message: ''
         }
     },
-    created() {
-        console.log('board')
-        console.log(this.MID)
-    },
+    // created() {
+    //     // console.log('board')
+    //     // console.log(this.MID)
+    // },
     mounted: function() {
         this.get_board(this.MID)
     },
     props: {
         MID: {
+            type: Number,
+            default: 0
+        },
+        NUID: {
             type: Number,
             default: 0
         }
@@ -40,15 +46,15 @@ export default {
         get_board(MID) {
             this.$http.get('http://192.168.55.33:8000/api/get_board', {params: {MID: MID}})
                 .then((response) => {
-                    let res = JSON.parse(response.bodyText)
-                    console.log(res)
+                    let res = response.data
                     if (res.error_num == 0) {
-                        this.UID = Number(res['UID'])
-                        this.time = res['time']
-                        this.title = res['title']
-                        this.message = res['message']
+                        this.UID = Number(res.UID)
+                        // console.log(this.UID)
+                        this.time = res.time
+                        this.title = res.title
+                        this.message = res.message
                     } else {
-                        console.log(res['msg'])
+                        console.log(res.msg)
                     }
                 })
         }

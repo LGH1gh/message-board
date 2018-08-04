@@ -92,20 +92,35 @@ def get_UID(request):
 
 @require_http_methods(['GET'])
 def get_board(request):
-    MID =int(request.GET.get('MID'))
+    MID = int(request.GET.get('MID'))
     response = {}
     try:
         board = Board.objects.get(MID = MID)
-        response['UID'] = board.UID
-        response['time'] = board.time
+        response['message'] = board.message
         response['title'] = board.title
-        response['message'] = board.message 
+        response['UID'] = board.UID_id
+        response['time'] = board.time
         response['error_num'] = 0
         response['msg'] = 'success'
     except Exception as e:
         response['msg'] = str(e)
         response['error_num'] = 1
     
+    return JsonResponse(response)
+
+@require_http_methods(['GET'])
+def get_username(request):
+    UID = int(request.GET.get('UID'))
+    response = {}
+    try:
+        user = User.objects.get(UID = UID)
+        response['username'] = user.username
+        response['error_num'] = 0
+        response['msg'] = 'success'
+    except Exception as e:
+        response['msg'] = str(e)
+        response['error_num'] = 1
+
     return JsonResponse(response)
 
 @require_http_methods(['GET'])
@@ -170,5 +185,10 @@ def get_comments(request):
         response['msg'] = str(e)
         response['error_num'] = 1
 
+    return JsonResponse(response)
 
-
+@require_http_methods(['GET'])
+def get_totalMessage(request):
+    response = {}
+    try:
+        

@@ -1,6 +1,6 @@
 <template>
     <ul>
-        <board MID = '1'></board>
+        <board MID = '1' NUID='2'></board>
     </ul>
 </template>
 

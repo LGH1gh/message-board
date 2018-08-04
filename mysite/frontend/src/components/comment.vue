@@ -1,11 +1,14 @@
 <template>
-    <div class='commit'>
+    <div class='comment'>
         <ul class='comment-items'>
             <li v-for='comment in commentList'>
-                <commentItem :username='comment.username' :comment='comment.comment' :time='comment.time'></commentItem>
+                <commentItem :UID='comment.fields.UID' :comment='comment.fields.comment' :time='comment.fields.time'></commentItem>
             </li>
         </ul>
-        <input type='text' contenteditable='true' placeholder='评论'>
+        <form @submit.prevent="add_comment">
+            <input type='text' contenteditable='true' placeholder='评论' v-model='userComment'>
+            <input type='submit' value='提交'>
+        </form>
     </div>
 </template>
 
@@ -17,29 +20,54 @@ export default {
         commentItem
     },
     mounted: function() {
-        this.get_comments(MID)
+        this.get_comments(this.MID)
     },
-    data() {
-        commentList: []
+    data: function() {
+        return {
+            commentList: [],
+            userComment: ''
+        }
     },
     props: {
         MID: {
             type: String,
             default: ''
+        },
+        SUID: {
+            type: Number,
+            default: 0
         }
+    },
+    updated() {
+        
     },
     methods: {
         get_comments(MID) {
             this.$http.get('http://192.168.55.33:8000/api/get_comments', {params: {MID: MID}})
                 .then((response) => {
-                    let res = JSON.parse(response.bodyText)
-                    console.log(res)
+                    let res = response.data
+                    // console.log(res)
                     if (res.error_num == 0) {
-                        this.commentList = res['list']
+                        this.commentList = res.list
+                        console.log(this.commentList)
                     } else {
-                        console.log(res['msg'])
+                        console.log(res.msg)
                     }
                 })
+        },
+        add_comment() {
+            this.$http.get('http://192.168.55.33:8000/api/add_comment', {params: {MID: this.MID, UID: this.SUID, comment: this.userComment}})
+                .then((response) => {
+                    let res = response.data
+                    if(res.error_num == 0) {
+                        this.get_comments(this.MID)
+                        this.userComment = ''
+                        console.log(res.msg)
+                    } else {
+                        console.log(res.msg)
+                    }
+                })
+            
         }
     }
 }
