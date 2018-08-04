@@ -92,21 +92,16 @@ def get_UID(request):
 
 @require_http_methods(['GET'])
 def get_board(request):
-    beginMID =int(request.GET.get('beginMID'))
-    endMID = int(request.GET.get('endMID'))
+    MID =int(request.GET.get('MID'))
     response = {}
     try:
-        if Board.objects.filter(MID = beginMID).exists():
-            if Board.objects.filter(MID = endMID -1).exists():
-                boards = Board.objects.filter(MID__gte = beginMID).filter(MID__lt = endMID)
-            else:
-                boards = Board.objects.filter(MID__gte = beginMID)
-            response['list'] = json.loads(serializers.serialize('json', boards))  
-            response['error_num'] = 0
-            response['msg'] = 'success'
-        else:
-            response['error_num'] = -1
-            response['msg'] = '没有足够的留言'
+        board = Board.objects.get(MID = MID)
+        response['UID'] = board.UID
+        response['time'] = board.time
+        response['title'] = board.title
+        response['message'] = board.message 
+        response['error_num'] = 0
+        response['msg'] = 'success'
     except Exception as e:
         response['msg'] = str(e)
         response['error_num'] = 1
@@ -162,6 +157,18 @@ def get_amAgree(request):
 
     return JsonResponse(response)
 
+@require_http_methods(['GET'])
+def get_comments(request):
+    MID = request.GET.get('MID')
+    response = {}
+    try:
+        comments = Comment.objects.filter(MID_id = MID).all()
+        response['list'] = json.loads(serializers.serialize('json', comments))
+        response['msg'] = 'success'
+        response['error_num'] = 0
+    except Exception as e:
+        response['msg'] = str(e)
+        response['error_num'] = 1
 
 
 

@@ -102,6 +102,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Add for vuejs
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "frontend/dist/static"),
+]
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
