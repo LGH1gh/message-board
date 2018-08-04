@@ -188,7 +188,16 @@ def get_comments(request):
     return JsonResponse(response)
 
 @require_http_methods(['GET'])
-def get_totalMessage(request):
+def get_totalNumber(request):
     response = {}
     try:
+        total = Board.objects.all().count()
+        response['total'] = total
+        response['msg'] = 'success'
+        response['error_num'] = 0
+    except Exception as e:
+        response['msg'] = str(e)
+        response['error_num'] = 1
+    
+    return JsonResponse(response)
         

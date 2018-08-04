@@ -5,7 +5,7 @@
                 <commentItem :UID='comment.fields.UID' :comment='comment.fields.comment' :time='comment.fields.time'></commentItem>
             </li>
         </ul>
-        <form @submit.prevent="add_comment">
+        <form @submit.prevent='add_comment'>
             <input type='text' contenteditable='true' placeholder='评论' v-model='userComment'>
             <input type='submit' value='提交'>
         </form>
@@ -38,9 +38,6 @@ export default {
             default: 0
         }
     },
-    updated() {
-        
-    },
     methods: {
         get_comments(MID) {
             this.$http.get('http://192.168.55.33:8000/api/get_comments', {params: {MID: MID}})
@@ -59,10 +56,10 @@ export default {
             this.$http.get('http://192.168.55.33:8000/api/add_comment', {params: {MID: this.MID, UID: this.SUID, comment: this.userComment}})
                 .then((response) => {
                     let res = response.data
-                    if(res.error_num == 0) {
+                    if (res.error_num == 0) {
                         this.get_comments(this.MID)
                         this.userComment = ''
-                        console.log(res.msg)
+                        // console.log(res.msg)
                     } else {
                         console.log(res.msg)
                     }
