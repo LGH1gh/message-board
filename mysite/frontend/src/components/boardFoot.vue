@@ -10,7 +10,7 @@
             {{ disagreeNumber}}
         </div>
         <div v-else class='fa-thumbs-o-down'>
-
+            {{ disagreeNUmber }}
         </div>
     </div>
 </template>
@@ -19,16 +19,12 @@
 export default {
     name: 'boardFoot',
     props: {
-        agreeNumber: {
-            type: Number,
+        MID: {
+            type: number,
             default: 0
         },
-        disagreeNumber: {
-            type: Number,
-            default: 0
-        },
-        amAgree: {
-            type: Number,
+        UID: {
+            type: number,
             default: 0
         }
     },
