@@ -86,9 +86,7 @@ export default {
                     .then((response) => {
                         let res = response.data
                         if (res.error_num == 0) {
-                            this.$router.push({
-                                path: '/',
-                            })
+                            location.reload()
                             console.log('123')
                             // this.userMessage = ''
                             // this.userTitle = ''
