@@ -16,8 +16,8 @@ class Board(models.Model):
 
 class Agree(models.Model):
     AID = models.AutoField(primary_key = True)
-    MID = models.ForeignKey(Board, unique = True, on_delete = models.CASCADE)
-    UID = models.ForeignKey(User, unique = True,  on_delete = models.CASCADE)
+    MID = models.ForeignKey(Board, on_delete = models.CASCADE)
+    UID = models.ForeignKey(User,  on_delete = models.CASCADE)
     agree = models.NullBooleanField()
 
 class Comment(models.Model):

@@ -24,8 +24,7 @@ def add_user(request):
             response['msg'] = str(e)
             response['error_num'] = 1
 
-        return JsonResponse(response)
-
+    return JsonResponse(response)
 
 @require_http_methods(['GET'])
 def add_board(request):
@@ -46,17 +45,25 @@ def add_agree(request):
     response = {}
     MID = int(request.GET.get('MID'))
     UID = int(request.GET.get('UID'))
+    agree = int(request.GET.get('agree'))
+    if agree == 0:
+        agree = None
+    elif agree == -1:
+        agree = False
+    else:
+        agree = True
     try:
         if Agree.objects.filter(UID_id = UID, MID_id = MID).exists():
-            Agree.objects.filter(UID_id = UID, MID_id = MID).update(agree = request.GET.get('agree'))
-        else:
-            agree = Agree(UID_id = UID, MID_id = MID, agree = request.GET.get('agree'))
-            agree.save()
+            Agree.objects.filter(UID_id = UID, MID_id = MID).update(agree = agree) 
+        response['agree'] = Agree.objects.get(UID_id = UID, MID_id = MID).agree
         response['msg'] = 'success'
         response['error_num'] = 0
     except Exception as e:
-        response['msg'] = str(e)
-        response['error_num'] = 1
+        agree = Agree(UID_id = UID, MID_id = MID, agree = agree)
+        agree.save()
+        response['agree'] = Agree.objects.get(UID_id = UID, MID_id = MID).agree
+        response['msg'] = 'success'
+        response['error_num'] = 0
     
     return JsonResponse(response)
 
@@ -161,8 +168,10 @@ def get_amAgree(request):
     try:
         if Agree.objects.get(MID_id = MID, UID_id = UID).agree == True:
             response['amAgree'] = 1
-        else:
+        elif Agree.objects.get(MID_id = MID, UID_id = UID).agree == False:
             response['amAgree'] = -1
+        else:
+            response['amAgree'] = 0
         response['msg'] = 'success'
         response['error_num'] = 0
     except Exception as e:

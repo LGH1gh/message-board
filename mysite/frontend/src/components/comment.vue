@@ -46,7 +46,7 @@ export default {
                     // console.log(res)
                     if (res.error_num == 0) {
                         this.commentList = res.list
-                        console.log(this.commentList)
+                        // console.log(this.commentList)
                     } else {
                         console.log(res.msg)
                     }

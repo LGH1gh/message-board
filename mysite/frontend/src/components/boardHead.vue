@@ -1,6 +1,6 @@
 <template>
     <div class='board-head'>
-        <div class='user-info'>
+        <div class='user-info' class='user'>
             <div class='user-name'>
                 {{ username }}
             </div>

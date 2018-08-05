@@ -9,10 +9,7 @@ export default new Router({
     {
       path: '/',
       name: 'pageData',
-      component: pageData,
-      meta: {
-        requireAuth: true
-      }
+      component: pageData
     },
     {
       path: '/login',

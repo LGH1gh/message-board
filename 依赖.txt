@@ -1,2 +1,2 @@
 axios
-vuex
+vue-icon

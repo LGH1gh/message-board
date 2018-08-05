@@ -1,8 +1,9 @@
 <template>
-    <div>
-        <div class="note" :style ="note"></div>
-        <h3>登录</h3>
-        <form @submit.prevent='get_UID'>
+    <div class='login'>
+        <div class='title'>
+            <h3>账号密码登录</h3>
+        </div>
+        <form class='login_form'>
             <div>
                 <label for='username'>用户名:</label>
                 <input type='text' id='username' name='username' v-model='username' required>
@@ -11,8 +12,11 @@
                 <label for='username'>密码:  </label>
                 <input type='password' id='password' name='password' v-model='password' required>
             </div>
-            <div v-if='this.isLogin == false'>你输入的帐号或密码不正确，请重新输入。</div>
-            <input type='submit' value='提交'>
+            <div v-if='this.isLogin == 0' class='holder'></div>
+            <div v-if='this.isLogin == -1' class='text'>你输入的帐号或密码不正确，请重新输入。</div>
+            <div v-if='this.isLogin == -2' class='text'>你所注册的用户名已被占用，请重新输入。</div>
+            <input type='submit' value='登录' class='submit' @click='get_UID'>
+            <input type='submit' value='注册' class='register' @click='add_user'>
         </form>
     </div>
 </template>
@@ -24,14 +28,8 @@ export default {
         return {
             username: '',
             password: '',
-            isLogin: true,
-            UID: 0,
-            note: {
-                backgroundImage: "url(" + require("../assets/bg.png") + ")",
-                backgroundRepeat: "no-repeat",
-                backgroundSize: "25px auto",
-                marginTop: "5px",
-            }
+            isLogin: 0,
+            UID: 0
         }
     },
     methods: {
@@ -41,7 +39,7 @@ export default {
                     let res = response.data
                     if (res.error_num == 0) {
                         this.UID = Number(res.UID)
-                        this.isLogin = true
+                        this.isLogin = 0
                         this.$router.push({
                             name: 'pageData' ,
                             params: {
@@ -50,7 +48,27 @@ export default {
                             })
                     } else {
                         console.log(res.msg)
-                        this.isLogin = false
+                        this.isLogin = -1
+                    }
+                })
+        },
+        add_user() {
+            this.$http.get('http://192.168.55.33:8000/api/add_user', {params: {username: this.username, password: this.password}})
+                .then((response) => {
+                    let res = response.data
+                    if (res.error_num == 0) {
+                        this.UID = this.get_UID(this.username)
+                        console.log(this.UID)
+                        this.isLogin = 0
+                        this.$router.push({
+                            name: 'pageData',
+                            params: {
+                                NUID: this.UID
+                            }
+                        })
+                    } else {
+                        this.isLogin = -2
+                        console.log(res.msg)
                     }
                 })
         }

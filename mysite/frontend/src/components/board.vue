@@ -22,13 +22,9 @@ export default {
             UID: 1,
             time: '',
             title: '',
-            message: ''
+            message: '',
         }
     },
-    // created() {
-    //     // console.log('board')
-    //     // console.log(this.MID)
-    // },
     mounted: function() {
         this.get_board(this.MID)
     },
@@ -57,7 +53,7 @@ export default {
                         console.log(res.msg)
                     }
                 })
-        }
+        },
     }
 }
 </script>
