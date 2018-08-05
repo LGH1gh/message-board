@@ -1,0 +1,5 @@
+https://se.jisuanke.com/LGHign/MessageBoard.git
+
+npm 依赖
+axios
+vue-icon
