@@ -1,7 +1,7 @@
 <template>
     <div class = 'board'>
         <boardHead :UID='UID' :time='time' :title='title' :message='message'></boardHead>
-        <boardFoot :MID='MID' :UID='UID'>hello</boardFoot>
+        <boardFoot :MID='MID' :UID='NUID'>hello</boardFoot>
         <comment :MID='MID' :SUID='NUID'></comment>
     </div>
 </template>
@@ -19,7 +19,7 @@ export default {
     name: 'board',
     data: function() {
         return {
-            UID: 1,
+            UID: 0,
             time: '',
             title: '',
             message: '',
@@ -42,9 +42,10 @@ export default {
         get_board(MID) {
             this.$http.get('http://192.168.55.33:8000/api/get_board', {params: {MID: MID}})
                 .then((response) => {
+                    // console.log(MID)
                     let res = response.data
                     if (res.error_num == 0) {
-                        this.UID = Number(res.UID)
+                        this.UID = res.UID
                         // console.log(this.UID)
                         this.time = res.time
                         this.title = res.title
@@ -59,5 +60,13 @@ export default {
 </script>
 
 <style scoped>
-
+.board {
+    background-color: beige;
+    margin-bottom: 100px;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
 </style>

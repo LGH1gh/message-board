@@ -1,5 +1,5 @@
 <template>
-  <div id="app" :style='note'>
+  <div id="app">
     <img src="./assets/logo.png">
     <router-view/>
   </div>
@@ -37,5 +37,6 @@ export default {
   width:100%;
   height:100%;
   border:hidden;
+  background-color: bisque;
 }
 </style>

@@ -32,6 +32,8 @@ def add_board(request):
     try:
         board = Board(UID_id = int(request.GET.get('UID')), title = request.GET.get('title'), message = request.GET.get('message'))
         board.save()
+        response['MID'] = board.MID
+        response['UID'] = board.UID_id
         response['msg'] = 'success'
         response['error_num'] = 0
     except Exception as e:
@@ -194,6 +196,19 @@ def get_comments(request):
         response['msg'] = str(e)
         response['error_num'] = 1
 
+    return JsonResponse(response)
+
+@require_http_methods(['GET'])
+def get_boards(request):
+    response = {}
+    try:
+        boards = Board.objects.all()
+        response['list'] = json.loads(serializers.serialize('json', boards))
+        response['msg'] = 'success'
+        response['error_num'] = 0
+    except Exception as e:
+        response['msg'] = str(e)
+        response['error_num'] = 1
     return JsonResponse(response)
 
 @require_http_methods(['GET'])

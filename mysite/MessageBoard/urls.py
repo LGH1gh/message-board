@@ -15,6 +15,7 @@ urlpatterns = [
     url(r'get_username$', views.get_username),
     url(r'get_comments$', views.get_comments),
     url(r'get_totalNumber$', views.get_totalNumber),
+    url(r'get_boards$', views.get_boards),
     
     path('login', auth_views.login, name='login'),
     path('authenticate', auth_views.authenticate, name='authenticate'),

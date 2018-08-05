@@ -11,6 +11,19 @@ Vue.config.productionTip = false
 Vue.prototype.$http = axios
 Vue.use(feather, 'v-icon')
 /* eslint-disable no-new */
+
+router.beforeEach((to, from, next) => {
+  if (to.path === '/login') {
+    sessionStorage.removeItem('user')
+  }
+  let user = sessionStorage.getItem('user')
+  if (!user && (to.path === '/')) {
+    next({path: '/login'})
+  } else {
+    next()
+  }
+})
+
 new Vue({
   el: '#app',
   router,

@@ -40,6 +40,7 @@ export default {
                     if (res.error_num == 0) {
                         this.UID = Number(res.UID)
                         this.isLogin = 0
+                        sessionStorage.setItem('user', this.UID)
                         this.$router.push({
                             name: 'pageData' ,
                             params: {
@@ -60,6 +61,7 @@ export default {
                         this.UID = this.get_UID(this.username)
                         console.log(this.UID)
                         this.isLogin = 0
+                        sessionStorage.setItem('user', this.UID)
                         this.$router.push({
                             name: 'pageData',
                             params: {

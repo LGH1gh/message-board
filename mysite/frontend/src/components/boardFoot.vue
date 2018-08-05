@@ -53,9 +53,9 @@ export default {
         }
     },
     mounted: function() {
-        this.get_agreeNumber(this.MID)
-        this.get_disagreeNumber(this.MID)
-        this.get_amAgree(this.MID)
+        this.get_agreeNumber()
+        this.get_disagreeNumber()
+        this.get_amAgree()
         // console.log(MID)
     },
     methods: {
@@ -86,6 +86,8 @@ export default {
                 })
         },
         get_amAgree() {
+            // console.log(this.MID)
+            // console.log(this.UID)
             this.$http.get('http://192.168.55.33:8000/api/get_amAgree', {params: {MID: this.MID, UID: this.UID}})
                 .then((response) => {
                     let res = response.data
@@ -103,7 +105,7 @@ export default {
                 .then((response) => {
                     let res = response.data
                     if (res.error_num == 0) {
-                        console.log(res)
+                        // console.log(res)
                         this.get_agreeNumber()
                         this.get_disagreeNumber()
                         this.get_amAgree()
@@ -131,7 +133,7 @@ export default {
                 .then((response) => {
                     let res = response.data
                     if (res.error_num == 0) {
-                        console.log(res)
+                        // console.log(res)
                         this.get_agreeNumber()
                         this.get_disagreeNumber()
                         this.get_amAgree()
@@ -148,5 +150,10 @@ export default {
 <style scoped>
 .choose {
     color: rgb(255, 0, 0);
+}
+.board-foot {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
     <div class='commentItem'>
-        <a class='username'> {{ username}} </a> '&nbsp; : {{ comment }}'
-        <div class='comment-detail'>{{ time }}</div>
+        <a class='username'><strong>{{ username}} </strong></a> '&nbsp; : {{ comment }}'
+        <div class='comment-detail'>时间：{{ time }}</div>
     </div>
 </template>
 
