@@ -44,7 +44,7 @@ export default {
     },
     methods: {
         get_comments(MID) {
-            this.$http.get('http://192.168.55.33:8000/api/get_comments', {params: {MID: MID}})
+            this.$http.get('http://localhost:8000/api/get_comments', {params: {MID: MID}})
                 .then((response) => {
                     let res = response.data
                     // console.log(res)
@@ -60,7 +60,7 @@ export default {
             if (this.SUID == 0) {
                 this.alert = 1
             }
-            this.$http.get('http://192.168.55.33:8000/api/add_comment', {params: {MID: this.MID, UID: this.SUID, comment: this.userComment}})
+            this.$http.get('http://localhost:8000/api/add_comment', {params: {MID: this.MID, UID: this.SUID, comment: this.userComment}})
                 .then((response) => {
                     let res = response.data
                     if (res.error_num == 0) {

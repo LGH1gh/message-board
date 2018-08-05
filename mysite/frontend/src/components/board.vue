@@ -40,7 +40,7 @@ export default {
     },
     methods: {
         get_board(MID) {
-            this.$http.get('http://192.168.55.33:8000/api/get_board', {params: {MID: MID}})
+            this.$http.get('http://localhost:8000/api/get_board', {params: {MID: MID}})
                 .then((response) => {
                     // console.log(MID)
                     let res = response.data

@@ -34,7 +34,7 @@ export default {
     },
     methods: {
         get_UID() {
-            this.$http.get('http://192.168.55.33:8000/api/get_UID', {params: {username: this.username, password: this.password}})
+            this.$http.get('http://localhost:8000/api/get_UID', {params: {username: this.username, password: this.password}})
                 .then((response)  => {
                     let res = response.data
                     if (res.error_num == 0) {
@@ -54,7 +54,7 @@ export default {
                 })
         },
         add_user() {
-            this.$http.get('http://192.168.55.33:8000/api/add_user', {params: {username: this.username, password: this.password}})
+            this.$http.get('http://localhost:8000/api/add_user', {params: {username: this.username, password: this.password}})
                 .then((response) => {
                     let res = response.data
                     if (res.error_num == 0) {

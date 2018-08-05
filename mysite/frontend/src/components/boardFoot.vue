@@ -60,7 +60,7 @@ export default {
     },
     methods: {
         get_agreeNumber() {
-            this.$http.get('http://192.168.55.33:8000/api/get_agreeNumber', {params: {MID: this.MID}})
+            this.$http.get('http://localhost:8000/api/get_agreeNumber', {params: {MID: this.MID}})
                 .then((response) => {
                     let res = response.data
                     // console.log(res)
@@ -73,7 +73,7 @@ export default {
                 })
         },
         get_disagreeNumber() {
-            this.$http.get('http://192.168.55.33:8000/api/get_disagreeNumber', {params: {MID: this.MID}})
+            this.$http.get('http://localhost:8000/api/get_disagreeNumber', {params: {MID: this.MID}})
                 .then((response) => {
                     let res = response.data
                     // console.log(res)
@@ -88,7 +88,7 @@ export default {
         get_amAgree() {
             // console.log(this.MID)
             // console.log(this.UID)
-            this.$http.get('http://192.168.55.33:8000/api/get_amAgree', {params: {MID: this.MID, UID: this.UID}})
+            this.$http.get('http://localhost:8000/api/get_amAgree', {params: {MID: this.MID, UID: this.UID}})
                 .then((response) => {
                     let res = response.data
                     // console.log(res)
@@ -101,7 +101,7 @@ export default {
                 })
         },
         re_agree() {
-            this.$http.get('http://192.168.55.33:8000/api/add_agree', {params: {MID: this.MID, UID: this.UID, agree: 0}})
+            this.$http.get('http://localhost:8000/api/add_agree', {params: {MID: this.MID, UID: this.UID, agree: 0}})
                 .then((response) => {
                     let res = response.data
                     if (res.error_num == 0) {
@@ -115,7 +115,7 @@ export default {
                 })
         },
         add_agree() {
-            this.$http.get('http://192.168.55.33:8000/api/add_agree', {params: {MID: this.MID, UID: this.UID, agree: 1}})
+            this.$http.get('http://localhost:8000/api/add_agree', {params: {MID: this.MID, UID: this.UID, agree: 1}})
                 .then((response) => {
                     let res = response.data
                     if (res.error_num == 0) {
@@ -129,7 +129,7 @@ export default {
                 })
         },
         add_disagree() {
-            this.$http.get('http://192.168.55.33:8000/api/add_agree', {params: {MID: this.MID, UID: this.UID, agree: -1}})
+            this.$http.get('http://localhost:8000/api/add_agree', {params: {MID: this.MID, UID: this.UID, agree: -1}})
                 .then((response) => {
                     let res = response.data
                     if (res.error_num == 0) {

@@ -59,7 +59,7 @@ export default {
     methods: {
         get_totalNumber() {
             // console.log(this.NUID)
-            this.$http.get('http://192.168.55.33:8000/api/get_totalNumber')
+            this.$http.get('http://localhost:8000/api/get_totalNumber')
                 .then((response) => {
                     let res = response.data
                     if (res.error_num == 0) {
@@ -82,7 +82,7 @@ export default {
                 this.alert = 1
             } else {
                 console.log(this.NUID + this.userTitle + this.userMessage)
-                this.$http.get('http://192.168.55.33:8000/api/add_board', {params: {UID: this.NUID, title: this.userTitle, message: this.userMessage}})
+                this.$http.get('http://localhost:8000/api/add_board', {params: {UID: this.NUID, title: this.userTitle, message: this.userMessage}})
                     .then((response) => {
                         let res = response.data
                         if (res.error_num == 0) {
@@ -100,7 +100,7 @@ export default {
             }
         },
         get_username(UID) {
-            this.$http.get('http://192.168.55.33:8000/api/get_username', {params: {UID: UID}})
+            this.$http.get('http://localhost:8000/api/get_username', {params: {UID: UID}})
                 .then((response) => {
                     let res = response.data
                     if (res.error_num == 0) {
